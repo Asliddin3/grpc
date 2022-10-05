@@ -1,0 +1,79 @@
+syntax="proto3";
+
+package product;
+
+
+service ProductService{
+  rpc CreateProduct(CreateProductRequest) returns(Product);
+  rpc GetProductInfo(GetProductRequest) returns(Product);
+  rpc GetProducts(Empty)returns (ListProductResponse);
+  rpc UpdateProduct(ProductReq) returns(Product);
+  rpc DelelteProduct(GetProductRequest) returns(ListProductResponse);
+  // rpc CreateCategory(CreateCategoryRequest) returns(Category);
+  // rpc CreateType(CreateTypeRequest) returns(Type);
+}
+message CreateTypeRequest{
+  string name =1;
+}
+
+message CreateCategoryRequest{
+  string name =1;
+}
+message ListProductResponse{
+  repeated Product products =1;
+}
+
+message Empty {}
+
+message GetProductRequest{
+  int64 id =1;
+}
+
+message CreateProductRequest{
+  string name =1;
+  int64 categoryid =2;
+  int64 typeid =3;
+  repeated StoreReq stores =4;
+}
+
+message Category {
+  int64 id=1;
+  string name =2;
+}
+message Type {
+  int32 id=1;
+  string name =2;
+}
+message ProductReq{
+  int64 id=1;
+  string name =2;
+  int64 categoryid =3;
+  int64 typeid=4;
+}
+message Product {
+  int64 id =1;
+  string name =2;
+  string category =3;
+  string type =4;
+  repeated Store stores =5;
+}
+message StoreReq {
+  string name =1;
+  repeated AddressReq addresses =2;
+}
+
+message AddressReq{
+  string district =1;
+  string street =2;
+}
+
+message Store{
+  int64 id =1;
+  string name =2;
+  repeated Address addresses =3;
+}
+message Address{
+  int64 id=1;
+  string district =2;
+  string street =3;
+}
